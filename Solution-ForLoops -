@@ -1,0 +1,115 @@
+if __name__ == '__main__':
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input())
+    
+#Presteps - find the number of possible ways it can be arranged (i,j,k) -- Combination becuase order isnt important
+count_i_x = x + 1
+count_j_y = y + 1
+count_k_z = z + 1
+all_possibilities = count_i_x * count_j_y * count_k_z
+
+
+#Step 1 - Print list for x
+i_list_ini =[0]
+t=1
+while t < count_i_x:
+  for number_i in range(1,count_i_x):
+    i_list_ini.append(number_i)
+    t+=1
+
+    
+
+#Step 2 - Print list for y
+j_list_ini =[0]
+t_j=1
+while t_j < count_j_y:
+    for number_j in range(1,count_j_y):
+        j_list_ini.append(number_j)
+        t_j+=1
+
+
+#Step 3 - Print list for z
+k_list_ini =[0]
+t_k=1
+while t_k < count_k_z:
+    for number_k in range(1,count_k_z):
+        k_list_ini.append(number_k)
+        t_k+=1
+
+
+#Step 4 - Create all lists of permutations for i
+total_perm_list_i = []
+
+
+
+for each_i in i_list_ini:
+  for each_j in j_list_ini:
+    for each_k in k_list_ini:
+      perm_list_i = [each_i,each_j,each_k]
+      total_perm_list_i.append(perm_list_i)
+
+
+
+
+#Step 5 - Create all lists of permutations for j
+total_perm_list_j = []
+
+for each_i in i_list_ini:
+  for each_j in j_list_ini:
+    for each_k in k_list_ini:
+      perm_list_j = [each_i,each_j,each_k]
+      total_perm_list_j.append(perm_list_j)
+     
+  
+          
+#Step 6 - Create all lists of permutations for k
+total_perm_list_k = []
+
+
+for each_i in i_list_ini:
+  for each_j in j_list_ini:
+    for each_k in k_list_ini:
+      perm_list_k = [each_i,each_j,each_k]
+      total_perm_list_k.append(perm_list_k)
+
+
+
+          
+#Step 7 - Merge all lists together
+total_perm_list_i.extend(total_perm_list_j)
+total_perm_list_i.extend(total_perm_list_k)
+
+Final_list = total_perm_list_i
+
+
+#Step 8 - remove lists with sum != n
+
+for i in Final_list:
+  if i[0]+i[1]+i[2] == n:
+    Final_list.remove(i)
+
+
+
+#Step 9 - remove duplicates
+for i_last in Final_list:
+  if Final_list.count(i_last) > 1:
+    Final_list.remove(i_last)
+
+x = Final_list
+
+for xwe in x:
+  if x.count(xwe) > 1:
+    x.remove(xwe)
+
+for xwe in x:
+  if xwe[0]+xwe[1]+xwe[2] == n:
+    x.remove(xwe)
+
+
+print(x)
+
+
+
+

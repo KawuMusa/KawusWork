@@ -1,0 +1,158 @@
+from PersonalCoffe import main
+
+
+money_machine = []
+rem_resources_water = []
+rem_resources_milk = []
+rem_resources_coffee = []
+reportt_water = []
+reportt_milk = []
+reportt_coffee = []
+sums_m = []
+
+p = 0
+
+
+while p == 0:
+    x = input("What would you like? (espresso/latte/cappuccino/):")
+    x_r = x
+    c = x_r
+
+    w1 = int(main.resources['water'])
+    w2 = int(main.resources['milk'])
+    w3 = int(main.resources['coffee'])
+
+
+
+    if x_r == "espresso" or x_r == "latte" or x_r == "cappuccino":
+        print("Please insert coins.")
+        n_quarters = int((input("How many quarters?\n")))
+        n_dimes = int((input("How many dimes?\n")))
+        n_nickels = int((input("How many nickels?\n")))
+        n_pennies = int((input("How many pennies?\n")))
+        val_quarters = 0.25
+        val_dimes = 0.10
+        val_nickles = 0.05
+        val_pennies = 0.01
+
+        monetary_value = (n_quarters * val_quarters) + (n_dimes * val_dimes) + (n_nickels * val_nickles) + (n_pennies *
+                                                                                                        val_pennies)
+
+        costs = [1.5, 2.5, 3.0]
+        if x_r == "espresso":
+            t = 0
+            if monetary_value < costs[t]:
+                print("Sorry that's not enough money. Money refunded.")
+            else:
+                money_machine.append(costs[t])
+                rem_resources_es_water = main.MENU['espresso']['ingredients']['water']
+                rem_resources_es_coffee = main.MENU['espresso']['ingredients']['coffee']
+                rem_resources_water.append(rem_resources_es_water)
+                rem_resources_coffee.append(rem_resources_es_coffee)
+
+
+        elif x_r == "latte":
+            t = 1
+            if monetary_value < costs[t]:
+                print("Sorry that's not enough money. Money refunded")
+            else:
+                money_machine.append(costs[t])
+                rem_resources_la_water = int(main.MENU['latte']['ingredients']['water'])
+                rem_resources_la_milk = int(main.MENU['latte']['ingredients']['milk'])
+                rem_resources_la_coffee = int(main.MENU['latte']['ingredients']['coffee'])
+                rem_resources_water.append(rem_resources_la_water)
+                rem_resources_coffee.append(rem_resources_la_coffee)
+                rem_resources_milk.append(rem_resources_la_milk)
+
+
+
+        elif x_r == "cappuccino":
+            t = 2
+            if monetary_value < costs[t]:
+                print("Sorry that's not enough money. Money refunded.")
+            else:
+                money_machine.append(costs[t])
+                rem_resources_ca_water = main.MENU['cappuccino']['ingredients']['water']
+                rem_resources_ca_milk = main.MENU['cappuccino']['ingredients']['milk']
+                rem_resources_ca_coffee = main.MENU['cappuccino']['ingredients']['coffee']
+                rem_resources_water.append(rem_resources_ca_water)
+                rem_resources_coffee.append(rem_resources_ca_coffee)
+                rem_resources_milk.append(rem_resources_ca_milk)
+
+
+    sum_m = sum(money_machine)
+    sum_water = sum(rem_resources_water)
+    sum_milk = sum(rem_resources_milk)
+    sum_coffee = sum(rem_resources_coffee)
+
+    report_water = w1 - sum_water
+    report_milk = w2 - sum_milk
+    report_coffee = w3 - sum_coffee
+
+    reportt_water.append(report_water)
+    reportt_milk.append(report_milk)
+    reportt_coffee.append(report_coffee)
+
+    if report_water > 0 and report_coffee > 0 and report_milk > 0:
+        sums_m.append(sum_m)
+
+
+    if x_r == "report":
+        if report_water >= 0 and report_coffee >= 0 and report_milk >= 0:
+            final_water = report_water
+            final_milk = report_milk
+            final_coffee = report_coffee
+            print(f"Water:{final_water}")
+            print(f"Milk:{final_milk}")
+            print(f"Coffee:{final_coffee}")
+            print(f"Money:{sum_m} \n")
+        else:
+            if report_water < 0:
+                for i in reportt_water:
+                    if i < 0:
+                        reportt_water.remove(i)
+
+            if report_milk < 0:
+                for r in reportt_milk:
+                    if r < 0:
+                        reportt_milk.remove(r)
+
+            if report_coffee < 0:
+                for z in reportt_coffee:
+                    if z < 0:
+                        reportt_coffee.remove(z)
+
+            if report_water < 0 or report_milk < 0 or report_coffee < 0:
+                sum_n_m = sums_m[-1]
+
+
+
+                print(f"Water:{final_water}")
+                print(f"Milk:{final_milk}")
+                print(f"Coffee:{final_coffee}")
+                print(f"Money:{sum_n_m} \n")
+
+    if sum_water > w1:
+        print("Sorry, there isn't enough water.")
+    elif sum_milk > w2:
+        print("Sorry, there isn't enough milk.")
+    elif sum_coffee > w3:
+        print("Sorry, there isn't enough coffee.")
+    else:
+        if x_r == "latte":
+            change = (monetary_value - costs[0]).__round__(2)
+            print(f"Here is {change} in change.")
+            print("Here is your latte. Enjoy!")
+        elif x_r == "espresso":
+            change = (monetary_value - costs[1]).__round__(2)
+            print(f"Here is {change} in change.")
+            print("Here is your espresso. Enjoy!")
+        elif x_r == "cappuccino":
+            change = (monetary_value - costs[0]).__round__(2)
+            print(f"Here is {change} in change.")
+            print("Here is your cappuccino. Enjoy!")
+
+
+    if x_r == "off":
+        break
+

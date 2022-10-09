@@ -1,0 +1,15 @@
+if __name__ == '__main__':
+  x = int(input())
+  y = int(input())
+  z = int(input())
+  n = int(input())
+    
+list_x_for_i = [i for i in range (0,x+1)]
+list_y_for_j = [j for j in range (0,y+1)]
+list_z_for_k = [k for k in range (0,z+1)]
+
+overall_list = [list_x_for_i,list_y_for_j,list_z_for_k]
+
+permutations_withoutduplicates = [[i,z,t] for i in list_x_for_i for z in list_y_for_j for t in list_z_for_k if i+z+t !=n]
+
+print(permutations_withoutduplicates)

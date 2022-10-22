@@ -1,0 +1,71 @@
+from turtle import Turtle, Screen
+import random
+
+
+screen = Screen()
+screen.setup(width=500,height=400)
+screen.colormode(255)
+
+user_guess = screen.textinput(title="Guess who will win",prompt="Which of them will win the race? Enter a color: ")
+colors = ["red", "orange", "yellow", "green", "blue", "purple"]
+print(user_guess)
+turtle_list = []
+cordinate_turtle = []
+running_list = []
+position_z_l = []
+color_z_l = []
+"""Creating turtles"""
+for i in colors:
+    y = "turtle" + i
+    turtle_list.append(y)
+
+
+"""Creating starting coordinates"""
+y_cord = -100
+for y in turtle_list:
+    x_cord = -230
+    z = (x_cord,y_cord)
+    cordinate_turtle.append(z)
+    y_cord += 30
+
+
+
+"""Taking turtles to starting coordinates"""
+f = 0
+
+for z in turtle_list:
+    z = Turtle()
+    z.shape("turtle")
+    z.color(colors[f])
+    z.penup()
+    z.goto(cordinate_turtle[f])
+    f += 1
+    running_list.append(z)
+
+
+"""Making turtles run until finish point"""
+position_race = z.xcor()
+
+while position_race < 230:
+    for z in running_list:
+        z.forward(random.randint(0, 10))
+        position_z = z.pos()
+        color_z = z.color()
+        position_z_l.append(position_z)
+        color_z_l.append(color_z)
+        position_race += 1
+
+for xy in position_z_l:
+    max_pos = max(position_z_l)
+
+max_pos_index = position_z_l.index(max_pos)
+winner_c = color_z_l[max_pos_index]
+winner_col = winner_c[0]
+
+if user_guess == winner_col:
+    print(f"Your guess was right! {winner_col} kawu won!")
+else:
+    print(f"Your guess was wrong! {winner_col} kawu won!")
+
+
+screen.exitonclick()
